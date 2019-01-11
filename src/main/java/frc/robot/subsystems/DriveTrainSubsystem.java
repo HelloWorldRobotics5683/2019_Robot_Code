@@ -22,10 +22,11 @@ public class DriveTrainSubsystem extends Subsystem {
   public static Victor frontR = new Victor(RobotMap.FR);
   public static Victor rearL = new Victor(RobotMap.RL);
   public static Victor rearR = new Victor(RobotMap.RR);
+  
   public static MecanumDrive MD = new MecanumDrive(frontR, frontL, rearL, rearR);
 
-  public void DriveMecanumGeneric(double y, double x, double z) {
-    	MD.driveCartesian(y, x, z);
+  public void DriveMecanumGeneric(double x, double y, double z) {
+    	MD.driveCartesian(x, y, z);
   }
 
   @Override

@@ -25,9 +25,9 @@ public class MecanumDriveCommand extends Command {
   @Override
   protected void execute() {
     Robot.dt.DriveMecanumGeneric(
+      -Robot.m_oi.DriveX() * throttle(),
       Robot.m_oi.DriveY() * throttle(),
-      Robot.m_oi.DriveX() * throttle(),
-      Robot.m_oi.DriveTwist() * throttle()
+      -Robot.m_oi.DriveTwist() * throttle()
     );
   }
   
