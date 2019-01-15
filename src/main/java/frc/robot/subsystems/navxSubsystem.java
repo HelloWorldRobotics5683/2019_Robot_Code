@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.navxCommand;
+import frc.robot.Robot;
 
 /**
  * Add your docs here.
@@ -21,6 +22,8 @@ public class navxSubsystem extends Subsystem {
 
   public void pushData() {
     SmartDashboard.putNumber("IMU_Yaw", ahrs.getYaw());
+
+    SmartDashboard.putNumber("Ultrasonic", Robot.ultraSys.UltraConversion());
 
     SmartDashboard.putNumber("Displacement_X", ahrs.getDisplacementX());
     SmartDashboard.putNumber("Displacement_Y", ahrs.getDisplacementY());

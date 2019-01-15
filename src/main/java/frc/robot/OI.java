@@ -72,4 +72,8 @@ public class OI {
   public Double DriveThrottle() {
     return stick.getThrottle();
   }
+
+  public Boolean getButton(int bNum) {
+    return stick.getRawButton(bNum);
+  }
 }

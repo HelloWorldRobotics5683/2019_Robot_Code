@@ -18,4 +18,7 @@ public class RobotMap {
 	public static final int FR = 1;
 	public static final int RR = 2;
 	public static final int RL = 3;
+
+	public static final int Ult1 = 0;
+	public static final int Ult2 = 1;
 }
