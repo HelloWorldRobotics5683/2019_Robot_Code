@@ -1,7 +1,7 @@
-/* Drive code version 5.2
-1/10/19
+/* Drive code version 5.25
+1/18/19
 Written by: Programming team
-Changes: Created navx command + subsystem, ultrasonic subsystem
+Changes: Created navx command + subsystem, ultrasonic subsystem, began subsystem for talons
 */
 
 /*----------------------------------------------------------------------------*/

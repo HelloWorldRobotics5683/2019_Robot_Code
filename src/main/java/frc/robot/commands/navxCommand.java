@@ -14,6 +14,7 @@ public class navxCommand extends Command {
   public navxCommand() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.nav);
+    requires(Robot.ultraSys);
   }
 
   // Called just before this Command runs the first time
