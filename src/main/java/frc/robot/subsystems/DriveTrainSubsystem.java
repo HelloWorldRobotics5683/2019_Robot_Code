@@ -32,6 +32,6 @@ public class DriveTrainSubsystem extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new MecanumDriveCommand());
+   setDefaultCommand(new MecanumDriveCommand());
   }
 }

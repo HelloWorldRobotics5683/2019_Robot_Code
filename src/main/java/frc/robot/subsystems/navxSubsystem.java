@@ -17,7 +17,7 @@ import frc.robot.Robot;
 /**
  * Add your docs here.
  */
-public class navxSubsystem extends Subsystem {
+public class NavxSubsystem extends Subsystem {
   public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
   public void pushData() {

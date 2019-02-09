@@ -20,7 +20,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.DriveTrainSubsystem;
 import frc.robot.subsystems.UltrasonicSubsystem;
-import frc.robot.subsystems.navxSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.NavxSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,9 +33,11 @@ import frc.robot.subsystems.navxSubsystem;
  */
 public class Robot extends TimedRobot {
   public static DriveTrainSubsystem dt;
-  public static OI m_oi;
-  public static navxSubsystem nav;
+  public static NavxSubsystem nav;
   public static UltrasonicSubsystem ultraSys;
+  public static IntakeSubsystem intakeSys;
+  public static ElevatorSubsystem elevSys;
+  public static OI m_oi;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -45,9 +49,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     dt = new DriveTrainSubsystem();
-    m_oi = new OI();
-    nav = new navxSubsystem();
+    nav = new NavxSubsystem();
     ultraSys = new UltrasonicSubsystem();
+    intakeSys = new IntakeSubsystem();
+    elevSys = new ElevatorSubsystem();
+    m_oi = new OI();
     
     SmartDashboard.putData("Auto mode", m_chooser);
   }

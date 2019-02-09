@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.ResetCommand;
+import frc.robot.commands.intakeCommand;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -44,18 +46,36 @@ public class OI {
   // button.whenReleased(new ExampleCommand());
   public static Joystick stick = new Joystick(0);
 
-  Button b1 = new JoystickButton(stick, 1);
-	Button b2 = new JoystickButton(stick, 2);
-	Button b3 = new JoystickButton(stick, 3);
-	Button b4 = new JoystickButton(stick, 4);
-	Button b5 = new JoystickButton(stick, 5);
-	Button b6 = new JoystickButton(stick, 6);
-	Button b7 = new JoystickButton(stick, 7);
-	Button b8 = new JoystickButton(stick, 8);
-	Button b9 = new JoystickButton(stick, 9);
-	Button b10 = new JoystickButton(stick, 10);
-	Button b11 = new JoystickButton(stick, 11);
-  Button b12 = new JoystickButton(stick, 12);
+  Button b1;
+  Button b2;
+  Button b3;
+  Button b4;
+  Button b5;
+  Button b6;
+  Button b7;
+  Button b8;
+  Button b9;
+  Button b10;
+  Button b11;
+  Button b12;
+
+  public OI() {
+    b1 = new JoystickButton(stick, 1);
+	  b2 = new JoystickButton(stick, 2);
+	  b3 = new JoystickButton(stick, 3);
+	  b4 = new JoystickButton(stick, 4);
+	  b5 = new JoystickButton(stick, 5);
+	  b6 = new JoystickButton(stick, 6);
+	  b7 = new JoystickButton(stick, 7);
+	  b8 = new JoystickButton(stick, 8);
+	  b9 = new JoystickButton(stick, 9);
+	  b10 = new JoystickButton(stick, 10);
+	  b11 = new JoystickButton(stick, 11);
+    b12 = new JoystickButton(stick, 12);
+
+    b2.whenPressed(new intakeCommand());
+    b5.whenPressed(new ResetCommand());
+  }
   
   public Double DriveY() {
     return stick.getY();
