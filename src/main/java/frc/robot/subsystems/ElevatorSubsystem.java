@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-// import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import frc.robot.Robot;
@@ -39,9 +39,8 @@ public class ElevatorSubsystem extends Subsystem {
 
   double targetPos;
 
-  public void initialize() {
+  public ElevatorSubsystem() {
 		
-
     elevator.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
 		elevator.setSensorPhase(kSensorPhase); 
 		elevator.setInverted(kMotorInvert);

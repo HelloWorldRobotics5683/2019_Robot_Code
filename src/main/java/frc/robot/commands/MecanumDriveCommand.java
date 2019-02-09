@@ -32,7 +32,8 @@ public class MecanumDriveCommand extends Command {
   }
   
   protected Double throttle() {
-    Double throttle = (-Robot.m_oi.DriveThrottle() + 1)/2 * 0.9;
+    Double throttle = 0.0;
+    // Double throttle = (-Robot.m_oi.DriveThrottle() + 1)/2 * 0.9;
     return throttle;
   }
 

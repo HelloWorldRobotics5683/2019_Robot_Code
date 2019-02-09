@@ -10,8 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class navxCommand extends Command {
-  public navxCommand() {
+public class NavxCommand extends Command {
+  public NavxCommand() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.nav);
     requires(Robot.ultraSys);

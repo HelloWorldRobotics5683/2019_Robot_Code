@@ -21,4 +21,6 @@ public class RobotMap {
 
 	public static final int Ult1 = 0;
 	public static final int Ult2 = 1;
+
+	public static final int intakeTalon = 1;
 }

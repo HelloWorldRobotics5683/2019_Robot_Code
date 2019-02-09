@@ -9,7 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.navxCommand;
+import frc.robot.commands.NavxCommand;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class UltrasonicSubsystem extends Subsystem {
@@ -27,6 +27,6 @@ public class UltrasonicSubsystem extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new navxCommand());
+    setDefaultCommand(new NavxCommand());
   }
 }

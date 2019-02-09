@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.ResetCommand;
-import frc.robot.commands.intakeCommand;
+import frc.robot.commands.IntakeCommand;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -73,7 +73,7 @@ public class OI {
 	  b11 = new JoystickButton(stick, 11);
     b12 = new JoystickButton(stick, 12);
 
-    b2.whenPressed(new intakeCommand());
+    b2.whenPressed(new IntakeCommand());
     b5.whenPressed(new ResetCommand());
   }
   

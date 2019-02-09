@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -17,7 +18,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
  * Add your docs here.
  */
 public class IntakeSubsystem extends Subsystem {
-  TalonSRX intake = new TalonSRX(1); 
+  public TalonSRX intake = new TalonSRX(RobotMap.intakeTalon); 
 
   StringBuilder sb = new StringBuilder();
   int _loops = 0;
@@ -25,24 +26,22 @@ public class IntakeSubsystem extends Subsystem {
   // Constants
   public static final int kSlotIdx = 0;
   public static final int kPIDLoopIdx = 0;
-  public static final int kTimeoutMs = 15;
+  public static final int kTimeoutMs = 30;
   public static boolean kSensorPhase = true;
   public static boolean kMotorInvert = false;
   
   // Gains
-  public final double kP = 0.15;
+  public final double kP = 1.2;
   public final double kI = 0.0;
-  public final double kD = 1.0;
+  public final double kD = 8.0;
   public final double kF = 0.0;
   public final int kIzone = 0;
   public final double kPeakOutput = 0.8;
 
-  double targetPos;
+  //double kTargetPos;
   int absolutePosition;
 
-  public void initialize() {
-	
-	targetPos = 0.5 * 4096;
+  public IntakeSubsystem() {
 
     intake.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
 	intake.setSensorPhase(kSensorPhase); 
@@ -50,52 +49,53 @@ public class IntakeSubsystem extends Subsystem {
 	intake.setNeutralMode(NeutralMode.Brake);
 	intake.configNominalOutputForward(0, kTimeoutMs);
 	intake.configNominalOutputReverse(0, kTimeoutMs);
-	intake.configPeakOutputForward(1, kTimeoutMs);
-	intake.configPeakOutputReverse(-1, kTimeoutMs);
-	intake.configAllowableClosedloopError(kPIDLoopIdx, 0, kTimeoutMs);
+	intake.configPeakOutputForward(kPeakOutput, kTimeoutMs);
+	intake.configPeakOutputReverse(-kPeakOutput, kTimeoutMs);
+	intake.configAllowableClosedloopError(kPIDLoopIdx, 10, kTimeoutMs);
 	intake.config_kF(kPIDLoopIdx, kF, kTimeoutMs);
 	intake.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
 	intake.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
 	intake.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
-	
-	System.out.println("Setting absolute position...");	
-    absolutePosition = intake.getSensorCollection().getPulseWidthPosition();
-    setPos(intake, absolutePosition);
+
+	// System.out.println("Setting absolute position...");	
+    // absolutePosition = intake.getSensorCollection().getPulseWidthPosition();
+    // setPos(intake, absolutePosition);
   
 }
-
-  public void commonLoop() {
-		intake.set(ControlMode.Position, targetPos);
+ 	public double moveToTarget(double target) {
+		intake.set(ControlMode.Position, target);
+		_loops++;
+		return target;
 	}
 	
-	public void printer() {
+	public void printer(double target) {
 		/* Prepare line to print */
-		sb.append("\tloop out:");
+		sb.append("\nloop out:");
 		/* Get motor output and cast to int 
 		to remove decimal places */
 		double motorOutput = intake.getMotorOutputPercent();
 		sb.append((int) (motorOutput * 100));
 		sb.append("%");	// Percent
 
-		sb.append("\tloop pos:");
-		sb.append(getPos(intake));
+		sb.append("\nloop pos:");
+		sb.append(intake.getSelectedSensorPosition(0));
 		sb.append("u"); 	// Native units
 		
-		sb.append("\tloop err:");
+		sb.append("\nloop err:");
 		sb.append(getError(intake));
 		sb.append("u");	// Native Units
 
-		sb.append("\tloop trg:");
-		sb.append(targetPos);
+		sb.append("\nloop trg:");
+		sb.append(target);
 		sb.append("u");	/// Native Units
 
 		/**
 		 * Print every ten loops, printing too much too fast is generally bad
 		 * for performance.
 		 */
-		if (++_loops >= 10) {
-			_loops = 0;
+		if (++_loops >= 20) {
 			System.out.println(sb.toString());
+			_loops = 0;
 		}
 
 		/* Reset built string for next loop */
@@ -114,14 +114,10 @@ public class IntakeSubsystem extends Subsystem {
 		return t.getSelectedSensorPosition(kPIDLoopIdx);
 	}
 
-	public void reset() {
-		System.out.println("Rel pos before reset: " + getPos(intake) + "u");
-		System.out.println("Resetting...");
-		setPos(intake, 0);
-	}
-
-	public TalonSRX getIntake() {
-		return intake;
+	public double reset() {
+		moveToTarget(0.);
+		_loops++;
+		return 0.;
 	}
 
   @Override

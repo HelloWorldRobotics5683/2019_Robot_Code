@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.navxCommand;
+import frc.robot.commands.NavxCommand;
 import frc.robot.Robot;
 
 /**
@@ -42,6 +42,6 @@ public class NavxSubsystem extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new navxCommand());
+    setDefaultCommand(new NavxCommand());
   }
 }
