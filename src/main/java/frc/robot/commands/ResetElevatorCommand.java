@@ -10,10 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ResetCommand extends Command {
-  public ResetCommand() {
+public class ResetElevatorCommand extends Command {
+  public ResetElevatorCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.intakeSys);
+    requires(Robot.elevSys);
   }
 
   // Called just before this Command runs the first time
@@ -24,21 +24,21 @@ public class ResetCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double target = Robot.intakeSys.reset();
-    Robot.intakeSys.printer(target);
+    double target = Robot.elevSys.reset();
+    Robot.elevSys.printer(target);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intakeSys.getPos(Robot.intakeSys.intake) == 0;
+    return Robot.elevSys.getPos(Robot.elevSys.elevator) == 0;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Has Reset");
-    System.out.println("Rel pos after reset: " + Robot.intakeSys.getPos(Robot.intakeSys.intake) + "u");
+    System.out.println("Has reset");
+    System.out.println("Rel pos after reset: " + Robot.elevSys.getPos(Robot.elevSys.elevator) + "u");
   }
 
   // Called when another command which requires one or more of the same

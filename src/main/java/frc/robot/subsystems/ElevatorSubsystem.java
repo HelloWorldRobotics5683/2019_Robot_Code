@@ -8,16 +8,15 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import frc.robot.Robot;
 
 
 public class ElevatorSubsystem extends Subsystem {
-
-  TalonSRX elevator = new TalonSRX(2); 
+ public TalonSRX elevator = new TalonSRX(RobotMap.elevatorTalon); 
 
   StringBuilder sb = new StringBuilder();
   int _loops = 0;
@@ -37,13 +36,12 @@ public class ElevatorSubsystem extends Subsystem {
   public final int kIzone = 0;
   public final double kPeakOutput = 1.0;
 
-  double targetPos;
-
   public ElevatorSubsystem() {
 		
     elevator.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
 		elevator.setSensorPhase(kSensorPhase); 
 		elevator.setInverted(kMotorInvert);
+		elevator.setNeutralMode(NeutralMode.Brake);
 		elevator.configNominalOutputForward(0, kTimeoutMs);
 		elevator.configNominalOutputReverse(0, kTimeoutMs);
 		elevator.configPeakOutputForward(1, kTimeoutMs);
@@ -57,44 +55,63 @@ public class ElevatorSubsystem extends Subsystem {
     elevator.configMotionCruiseVelocity(15000, kTimeoutMs);
 		elevator.configMotionAcceleration(6000, kTimeoutMs);
 		elevator.setSelectedSensorPosition(0, kPIDLoopIdx, kTimeoutMs);
-    
-    int absolutePosition = elevator.getSensorCollection().getPulseWidthPosition();
-    elevator.setSelectedSensorPosition(absolutePosition, kPIDLoopIdx, kTimeoutMs);
+		
+		// Not sure if necessary?
+    // int absolutePosition = elevator.getSensorCollection().getPulseWidthPosition();
+    // elevator.setSelectedSensorPosition(absolutePosition, kPIDLoopIdx, kTimeoutMs);
   }
 
-  public void loop() {
+  public double moveToTarget(double rotations) {
     /* Get gamepad axis - forward stick is positive */
-		double leftYstick = -1.0 * Robot.m_oi.DriveY();
+		// double leftYstick = -1.0 * Robot.m_oi.DriveY();
+		 double target = rotations * 4096;
+		/* Motion Magic */ 
+		elevator.set(ControlMode.MotionMagic, target);
+		_loops++;
+		return target;
+  }
 
+	public void printer(double target) {
+		/* Prepare line to print */
 		/* Get current Talon SRX motor output */
 		double motorOutput = elevator.getMotorOutputPercent();
-
-		/* Prepare line to print */
-		sb.append("\tOut%:");
+		sb.append("\nOut:");
 		sb.append(motorOutput);
-		sb.append("\tVel:");
+		sb.append("\nVel:");
 		sb.append(elevator.getSelectedSensorVelocity(kPIDLoopIdx));
-
-		/* Motion Magic */ 
-			
-		/*4096 ticks/rev * 10 Rotations in either direction */
-		double targetPos = leftYstick * 4096 * 10.0;
-		elevator.set(ControlMode.MotionMagic, targetPos);
-
-		/* Append more signals to print when in speed mode */
-		sb.append("\terr:");
-		sb.append(elevator.getClosedLoopError(kPIDLoopIdx));
+		sb.append("\nerr:");
+		sb.append("u");
+		sb.append(getError(elevator));
 		sb.append("\ttrg:");
-		sb.append(targetPos);
-  }
+		sb.append(target);
+		sb.append("u");
 
-  public int getError() {
-		return elevator.getClosedLoopError();
+		if(_loops >= 20) {
+			System.out.println(sb.toString());
+			_loops = 0;
+		}
+	}
+
+  public int getError(TalonSRX t) {
+		return t.getClosedLoopError(0);
+	}
+
+	public void setPos(TalonSRX t, int sensorPos) {
+		t.setSelectedSensorPosition(sensorPos, kPIDLoopIdx, kTimeoutMs);
+	}
+
+	public int getPos(TalonSRX t) {
+		return t.getSelectedSensorPosition(kPIDLoopIdx);
+	}
+
+	public double reset() {
+		moveToTarget(0.);
+		_loops++;
+		return 0.;
 	}
 
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
   }
 }

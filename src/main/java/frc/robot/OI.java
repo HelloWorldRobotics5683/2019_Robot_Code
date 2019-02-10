@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.ResetCommand;
+import frc.robot.commands.ResetIntakeCommand;
 import frc.robot.commands.IntakeCommand;
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -74,7 +74,7 @@ public class OI {
     b12 = new JoystickButton(stick, 12);
 
     b2.whenPressed(new IntakeCommand());
-    b5.whenPressed(new ResetCommand());
+    b5.whenPressed(new ResetIntakeCommand());
   }
   
   public Double DriveY() {

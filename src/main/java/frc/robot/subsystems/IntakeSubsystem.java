@@ -90,7 +90,7 @@ public class IntakeSubsystem extends Subsystem {
 		sb.append("u");	/// Native Units
 
 		/**
-		 * Print every ten loops, printing too much too fast is generally bad
+		 * Print every 20 loops, printing too much too fast is generally bad
 		 * for performance.
 		 */
 		if (++_loops >= 20) {
