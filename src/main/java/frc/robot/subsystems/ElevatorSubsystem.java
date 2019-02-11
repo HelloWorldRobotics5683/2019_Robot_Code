@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import frc.robot.Robot;
 
 
 public class ElevatorSubsystem extends Subsystem {
@@ -20,7 +21,9 @@ public class ElevatorSubsystem extends Subsystem {
 
   StringBuilder sb = new StringBuilder();
   int _loops = 0;
-  
+	/* Get gamepad axis - forward stick is positive */
+	double stick = -1.0 * Robot.m_oi.DriveY();
+	
   // Constants
 	public static final int kSlotIdx = 0;
 	public static final int kPIDLoopIdx = 0;
@@ -62,8 +65,6 @@ public class ElevatorSubsystem extends Subsystem {
   }
 
   public double moveToTarget(double rotations) {
-    /* Get gamepad axis - forward stick is positive */
-		// double leftYstick = -1.0 * Robot.m_oi.DriveY();
 		 double target = rotations * 4096;
 		/* Motion Magic */ 
 		elevator.set(ControlMode.MotionMagic, target);
@@ -86,7 +87,7 @@ public class ElevatorSubsystem extends Subsystem {
 		sb.append(target);
 		sb.append("u");
 
-		if(_loops >= 20) {
+		if(_loops >= 50) {
 			System.out.println(sb.toString());
 			_loops = 0;
 		}
@@ -108,6 +109,10 @@ public class ElevatorSubsystem extends Subsystem {
 		moveToTarget(0.);
 		_loops++;
 		return 0.;
+	}
+
+	public void manualControl() {
+		elevator.set(ControlMode.PercentOutput, stick);
 	}
 
   @Override

@@ -93,7 +93,7 @@ public class IntakeSubsystem extends Subsystem {
 		 * Print every 20 loops, printing too much too fast is generally bad
 		 * for performance.
 		 */
-		if (++_loops >= 20) {
+		if (++_loops >= 50) {
 			System.out.println(sb.toString());
 			_loops = 0;
 		}
