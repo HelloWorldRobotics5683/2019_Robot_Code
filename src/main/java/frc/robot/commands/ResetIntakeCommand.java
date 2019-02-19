@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class ResetIntakeCommand extends Command {
-  public ResetIntakeCommand() {
+  public ResetIntakeCommand() {  
     // Use requires() here to declare subsystem dependencies
     requires(Robot.intakeSys);
   }
@@ -24,21 +24,19 @@ public class ResetIntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double target = Robot.intakeSys.reset();
-    Robot.intakeSys.printer(target);
+    Robot.intakeSys.moveToTarget(0.);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intakeSys.getPos(Robot.intakeSys.intake) == 0;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Has Reset");
-    System.out.println("Rel pos after reset: " + Robot.intakeSys.getPos(Robot.intakeSys.intake) + "u");
+
   }
 
   // Called when another command which requires one or more of the same

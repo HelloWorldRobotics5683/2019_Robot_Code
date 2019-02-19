@@ -7,10 +7,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.triggers.DoubleButton;
 import frc.robot.commands.*;
+import frc.robot.command_groups.*;
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -43,59 +46,103 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
-  public static Joystick stick = new Joystick(0);
+  public static XboxController xb = new XboxController(0);
 
-  Button b1;
-  Button b2;
-  Button b3;
-  Button b4;
-  Button b5;
-  Button b6;
-  Button b7;
-  Button b8;
-  Button b9;
-  Button b10;
+  Button A;
+  Button B;
+  Button X;
+  Button Y;
+  Button LB;
+  Button RB;
+  Button Back;
+  Button Start;
+  Button LS; // Click left stick
+  Button RS; // Click right stick
   Button b11;
   Button b12;
+  DoubleButton intakeReset;
+  DoubleButton outtakeL1;
+  DoubleButton outtakeL2;
+  DoubleButton outtakeL3;
+  DoubleButton goHome;
+  private int num_of_sticks = 2;
 
   public OI() {
-    b1 = new JoystickButton(stick, 1);
-	  b2 = new JoystickButton(stick, 2);
-	  b3 = new JoystickButton(stick, 3);
-	  b4 = new JoystickButton(stick, 4);
-	  b5 = new JoystickButton(stick, 5);
-	  b6 = new JoystickButton(stick, 6);
-	  b7 = new JoystickButton(stick, 7);
-	  b8 = new JoystickButton(stick, 8);
-	  b9 = new JoystickButton(stick, 9);
-	  b10 = new JoystickButton(stick, 10);
-	  b11 = new JoystickButton(stick, 11);
-    b12 = new JoystickButton(stick, 12);
+    A = new JoystickButton(xb, 1);
+	  B = new JoystickButton(xb, 2);
+	  X = new JoystickButton(xb, 3);
+	  Y = new JoystickButton(xb, 4);
+	  LB = new JoystickButton(xb, 5);
+	  RB = new JoystickButton(xb, 6);
+	  Back = new JoystickButton(xb, 7);
+	  Start = new JoystickButton(xb, 8);
+	  LS = new JoystickButton(xb, 9);
+	  RS = new JoystickButton(xb, 10);
+	  b11 = new JoystickButton(xb, 11);
+    b12 = new JoystickButton(xb, 12);
+    intakeReset = new DoubleButton(xb, 5, 6); // LB and RB
+    outtakeL1 = new DoubleButton(xb, 6, 1); // RB and A
+    outtakeL2 = new DoubleButton(xb, 6, 2); // RB and B
+    outtakeL3 = new DoubleButton(xb, 6, 4); // RB and Y
+    goHome = new DoubleButton(xb, 6, 3); // RB and X
 
-    b5.whenPressed(new IntakeCommand());
-    b3.whenPressed(new ResetIntakeCommand());
-    b6.whenPressed(new ElevatorCommand());
-    b4.whenPressed(new ResetElevatorCommand());
-    b1.whenPressed(new ElevatorManualCommand());
+    X.whileHeld(new ElevatorCommand(0.)); // reset to very bottom
+    Y.whenPressed(new ElevatorCommand(RobotMap.kLevel3));
+    B.whenPressed(new ElevatorCommand(RobotMap.kLevel2));
+    A.whileHeld(new ElevatorCommand(RobotMap.kLevel1));
+    LB.whileHeld(new ElevatorManualCommand());
+    Start.whenPressed(new IntakeCommand());
+    Back.whenPressed(new StopMovingCommand());
+    LS.whenPressed(new ThrottleCommand());
+    intakeReset.whenActive(new ResetIntakeCommand());
+    RB.whenPressed(new OuttakeGroup());
+    
   }
   
+  public Boolean getButton(int bNum) {
+    return xb.getRawButton(bNum);
+  }
+
+  public int getNumSticks() {
+    return num_of_sticks;
+  }
+
+  public double DriveTwist() {
+    if (LTriggerPressed()) {
+      return -1.0 * xb.getTriggerAxis(Hand.kLeft);
+    } else if(RTriggerPressed()) {
+      return xb.getTriggerAxis(Hand.kRight);
+    }
+    return 0.0;
+  }
+
   public Double DriveY() {
-    return stick.getY();
+    return xb.getY(Hand.kLeft);
   }
 
   public Double DriveX() {
-    return stick.getX();
+    return xb.getX(Hand.kLeft);
   }
 
-  public Double DriveTwist() {
-    return stick.getTwist();
+  public Double ElevY() {
+    return xb.getY(Hand.kRight);
   }
 
-  public Double DriveThrottle() {
-    return stick.getThrottle();
+  public Double ElevX() {
+    return xb.getX(Hand.kRight);
   }
 
-  public Boolean getButton(int bNum) {
-    return stick.getRawButton(bNum);
+  public boolean LTriggerPressed() {
+		if (xb.getTriggerAxis(Hand.kLeft) > 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public boolean RTriggerPressed() {
+		if (xb.getTriggerAxis(Hand.kRight) > 0) {
+			return true;
+		}
+		return false;
   }
 }

@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
  * Add your docs here.
  */
 public class DriveTrainSubsystem extends Subsystem {
-  
+  double throttle = 1;
+  public boolean isHigh = true;
   public static Victor frontL = new Victor(RobotMap.FL);
   public static Victor frontR = new Victor(RobotMap.FR);
   public static Victor rearL = new Victor(RobotMap.RL);
@@ -25,8 +26,17 @@ public class DriveTrainSubsystem extends Subsystem {
   
   public static MecanumDrive MD = new MecanumDrive(frontR, frontL, rearL, rearR);
 
-  public void DriveMecanumGeneric(double x, double y, double z) {
-    	MD.driveCartesian(x, y, z);
+  public void DriveMecanumGeneric( double y, double x, double z) {
+    	MD.driveCartesian(y, x, z);
+  }
+
+  public void setThrottle(double newThrottle) {
+    throttle = newThrottle;
+    isHigh = !isHigh;
+  }
+
+  public Double getThrottle() {
+    return throttle;
   }
 
   @Override

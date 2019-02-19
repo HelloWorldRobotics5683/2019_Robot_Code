@@ -22,6 +22,15 @@ public class RobotMap {
 	public static final int Ult1 = 0;
 	public static final int Ult2 = 1;
 
-	public static final int intakeTalon = 1;
-	public static final int elevatorTalon = 2;
+	public static final int intakeTalon = 2;
+	public static final int elevatorTalon = 1;
+
+	public static final double kHighThrottle = 1.0;
+	public static final double kLowThrottle = 0.25;
+
+	public static final double l1Ratio = 1740 / 17.25;
+
+	public static final double kLevel1 = 3200;
+	public static final int kLevel2 = 12605;
+	public static final int kLevel3 = 22230;
 }

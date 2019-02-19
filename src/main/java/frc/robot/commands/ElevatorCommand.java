@@ -11,9 +11,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class ElevatorCommand extends Command {
-  public ElevatorCommand() {
+  private double target;
+
+  public ElevatorCommand(double target) {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.elevSys);
+    this.target = target;
   }
 
   // Called just before this Command runs the first time
@@ -24,19 +27,21 @@ public class ElevatorCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double target = Robot.elevSys.moveToTarget(10.);
-    Robot.elevSys.printer(target);
+    double position = Robot.elevSys.moveToTarget(this.target);
+    Robot.elevSys.printer(position);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return Robot.elevSys.getError() <= 20 && Robot.elevSys.getError() > 0;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    System.out.println("Target reached");
+    System.out.println("Error after motion magic: " + Robot.elevSys.getError() + "u");
   }
 
   // Called when another command which requires one or more of the same

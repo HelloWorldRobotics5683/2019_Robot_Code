@@ -10,10 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ElevatorManualCommand extends Command {
-  public ElevatorManualCommand() {
+public class StopMovingCommand extends Command {
+  public StopMovingCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.elevSys);
+    requires(Robot.dt);
   }
 
   // Called just before this Command runs the first time
@@ -24,8 +24,7 @@ public class ElevatorManualCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double stickVal = -1.0 * Robot.m_oi.ElevY();
-    Robot.elevSys.manualControl(stickVal);
+    Robot.dt.DriveMecanumGeneric(0., 0., 0.);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -37,7 +36,6 @@ public class ElevatorManualCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Position after manual drive: " + Robot.elevSys.getPos() + "u");
   }
 
   // Called when another command which requires one or more of the same

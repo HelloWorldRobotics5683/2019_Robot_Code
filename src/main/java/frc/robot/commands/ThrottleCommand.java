@@ -9,11 +9,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class ResetElevatorCommand extends Command {
-  public ResetElevatorCommand() {
+public class ThrottleCommand extends Command {
+  public ThrottleCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.elevSys);
+    requires(Robot.dt);
   }
 
   // Called just before this Command runs the first time
@@ -24,27 +25,29 @@ public class ResetElevatorCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double target = Robot.elevSys.reset();
-    Robot.elevSys.printer(target);
+    if (Robot.dt.isHigh) {
+      System.out.println("Setting low speed.");
+      Robot.dt.setThrottle(RobotMap.kLowThrottle);
+    } else {
+      System.out.println("Setting high speed.");
+      Robot.dt.setThrottle(RobotMap.kHighThrottle);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.elevSys.getPos(Robot.elevSys.elevator) == 0;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Has reset");
-    System.out.println("Rel pos after reset: " + Robot.elevSys.getPos(Robot.elevSys.elevator) + "u");
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

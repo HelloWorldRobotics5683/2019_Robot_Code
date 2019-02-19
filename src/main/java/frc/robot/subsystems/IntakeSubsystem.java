@@ -20,18 +20,17 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 public class IntakeSubsystem extends Subsystem {
   public TalonSRX intake = new TalonSRX(RobotMap.intakeTalon); 
 
-  StringBuilder sb = new StringBuilder();
   int _loops = 0;
 
   // Constants
   public static final int kSlotIdx = 0;
   public static final int kPIDLoopIdx = 0;
   public static final int kTimeoutMs = 30;
-  public static boolean kSensorPhase = true;
+  public static boolean kSensorPhase = false;
   public static boolean kMotorInvert = false;
   
   // Gains
-  public final double kP = 1.2;
+  public final double kP = 2;
   public final double kI = 0.0;
   public final double kD = 8.0;
   public final double kF = 0.0;
@@ -39,10 +38,10 @@ public class IntakeSubsystem extends Subsystem {
   public final double kPeakOutput = 0.8;
 
   //double kTargetPos;
-  int absolutePosition;
+  public boolean isAtZero = true;
 
   public IntakeSubsystem() {
-
+	intake.setSelectedSensorPosition(2048);
     intake.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
 	intake.setSensorPhase(kSensorPhase); 
 	intake.setInverted(kMotorInvert);
@@ -62,63 +61,40 @@ public class IntakeSubsystem extends Subsystem {
     // setPos(intake, absolutePosition);
   
 }
- 	public double moveToTarget(double target) {
+ 	public double moveToTarget(double ticks) {
+		double target = ticks;
 		intake.set(ControlMode.Position, target);
 		_loops++;
+		isAtZero = !isAtZero;
 		return target;
 	}
 	
 	public void printer(double target) {
 		/* Prepare line to print */
-		sb.append("\nloop out:");
-		/* Get motor output and cast to int 
-		to remove decimal places */
-		double motorOutput = intake.getMotorOutputPercent();
-		sb.append((int) (motorOutput * 100));
-		sb.append("%");	// Percent
-
-		sb.append("\nloop pos:");
-		sb.append(intake.getSelectedSensorPosition(0));
-		sb.append("u"); 	// Native units
-		
-		sb.append("\nloop err:");
-		sb.append(getError(intake));
-		sb.append("u");	// Native Units
-
-		sb.append("\nloop trg:");
-		sb.append(target);
-		sb.append("u");	/// Native Units
-
-		/**
-		 * Print every 20 loops, printing too much too fast is generally bad
-		 * for performance.
-		 */
-		if (++_loops >= 50) {
-			System.out.println(sb.toString());
+		if (_loops >= 1000) {
+			/* Get motor output and cast to int 
+			to remove decimal places */
+			double motorOutput = intake.getMotorOutputPercent();
+			System.out.println("loop out: " + (int) (motorOutput * 100) + "%");	// Percent
+			System.out.println("loop pos: " + getPos() + "u");
+			System.out.println("loop err: " + getError() + "u");	// Native Units
+			System.out.println("loop trg: " + target + "u");	/// Native Units
 			_loops = 0;
 		}
-
-		/* Reset built string for next loop */
-		sb.setLength(0);
 	}
 
-	public int getError(TalonSRX t) {
-		return t.getClosedLoopError(0);
+	public int getError() {
+		return intake.getClosedLoopError(0);
 	}
 
-	public void setPos(TalonSRX t, int sensorPos) {
-		t.setSelectedSensorPosition(sensorPos, kPIDLoopIdx, kTimeoutMs);
+	public void setPos(int sensorPos) {
+		intake.setSelectedSensorPosition(sensorPos, kPIDLoopIdx, kTimeoutMs);
 	}
 
-	public int getPos(TalonSRX t) {
-		return t.getSelectedSensorPosition(kPIDLoopIdx);
+	public int getPos() {
+		return intake.getSelectedSensorPosition(kPIDLoopIdx);
 	}
 
-	public double reset() {
-		moveToTarget(0.);
-		_loops++;
-		return 0.;
-	}
 
   @Override
   public void initDefaultCommand() {

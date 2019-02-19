@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class IntakeCommand extends Command {
+
   public IntakeCommand() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.intakeSys);
@@ -24,14 +25,19 @@ public class IntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double target = Robot.intakeSys.moveToTarget(2048.);
-    Robot.intakeSys.printer(target);
+    double position;
+    if (Robot.intakeSys.isAtZero) {
+      position = Robot.intakeSys.moveToTarget(2048);
+    } else {
+      position = Robot.intakeSys.moveToTarget(0);
+    }
+    Robot.intakeSys.printer(position);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
     //return Robot.intakeSys.getError(Robot.intakeSys.intake) == 0;
   }
 

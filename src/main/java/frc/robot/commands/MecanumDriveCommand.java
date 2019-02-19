@@ -25,16 +25,10 @@ public class MecanumDriveCommand extends Command {
   @Override
   protected void execute() {
     Robot.dt.DriveMecanumGeneric(
-      -Robot.m_oi.DriveX() * throttle(),
-      Robot.m_oi.DriveY() * throttle(),
-      -Robot.m_oi.DriveTwist() * throttle()
+      -Robot.m_oi.DriveY() * Robot.dt.getThrottle(),
+      -Robot.m_oi.DriveX() * Robot.dt.getThrottle(),
+      -Robot.m_oi.DriveTwist() * Robot.dt.getThrottle()
     );
-  }
-  
-  protected Double throttle() {
-    Double throttle = 0.0;
-    // Double throttle = (-Robot.m_oi.DriveThrottle() + 1)/2 * 0.9;
-    return throttle;
   }
 
   // Make this return true when this Command no longer needs to run execute()
