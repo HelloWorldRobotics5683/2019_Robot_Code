@@ -82,6 +82,7 @@ public class OI {
     b12 = new JoystickButton(xb, 12);
     intakeReset = new DoubleButton(xb, 5, 6); // LB and RB
     outtakeL1 = new DoubleButton(xb, 6, 1); // RB and A
+   	 // kate **** level1 = new SingleButton(xb, 1, 6); // A and !RB	  
     outtakeL2 = new DoubleButton(xb, 6, 2); // RB and B
     outtakeL3 = new DoubleButton(xb, 6, 4); // RB and Y
     goHome = new DoubleButton(xb, 6, 3); // RB and X
@@ -89,7 +90,8 @@ public class OI {
     X.whileHeld(new ElevatorCommand(0.)); // reset to very bottom
     Y.whenPressed(new ElevatorCommand(RobotMap.kLevel3));
     B.whenPressed(new ElevatorCommand(RobotMap.kLevel2));
-    A.whileHeld(new ElevatorCommand(RobotMap.kLevel1));
+    A.whenPressed(new ElevatorCommand(RobotMap.kLevel1));
+	// kate **** level1.whenActive(new ElevatorCommand(RobotMap.kLevel1));	  
     LB.whileHeld(new ElevatorManualCommand());
     Start.whenPressed(new IntakeCommand());
     Back.whenPressed(new StopMovingCommand());
