@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -18,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 public class ElevatorSubsystem extends Subsystem {
  public TalonSRX elevator = new TalonSRX(RobotMap.elevatorTalon); 
+ public DigitalInput limSwitch = new DigitalInput(RobotMap.limitSwitch);
 
   StringBuilder sb = new StringBuilder();
   int _loops = 0;
@@ -38,7 +40,6 @@ public class ElevatorSubsystem extends Subsystem {
   public final double kPeakOutput = 0.001;
 
   public ElevatorSubsystem() {
-		elevator.setSelectedSensorPosition(0);
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
 		elevator.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, kTimeoutMs);
 		elevator.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, kTimeoutMs);
@@ -103,6 +104,13 @@ public class ElevatorSubsystem extends Subsystem {
 
 	public void manualControl(double stickVal) {
 		elevator.set(ControlMode.PercentOutput, stickVal);
+	}
+
+	public void ResetElevator() {
+		while (limSwitch.get()) {
+			elevator.set(ControlMode.Position, -0.1);
+		}
+		elevator.setSelectedSensorPosition(0);
 	}
 
   @Override

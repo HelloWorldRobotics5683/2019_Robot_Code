@@ -17,8 +17,8 @@ public class UltrasonicSubsystem extends Subsystem {
   AnalogInput Ultra1 = new AnalogInput(RobotMap.Ult1);
   AnalogInput Ultra2 = new AnalogInput(RobotMap.Ult2);
 
-  public double UltraConversion() {
-		double ultra_voltage = Ultra1.getVoltage(); Ultra2.getVoltage();
+  public double UltraConversion(AnalogInput ultra) {
+    double ultra_voltage = ultra.getVoltage();
 		double ultraInches = ((ultra_voltage/9.766) * 1000);
 
 		return ultraInches;

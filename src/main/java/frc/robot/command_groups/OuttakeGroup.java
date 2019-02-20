@@ -19,11 +19,11 @@ public class OuttakeGroup extends CommandGroup {
     //Raise elevator to target
     // addSequential(new ElevatorCommand(ticks));
     // Move forward for y amount (can be overridden)
-    addSequential(new AutoDriveCommand(0., .25, 0.));
+    addSequential(new AutoDriveCommand(0., .1, 0.));
     //Rotate intake to 0 to release hatch
     addSequential(new ResetIntakeCommand());
     //Back away slowly (can be overridden)
-    addSequential(new AutoDriveCommand(0., -.25, 0.));
+    addSequential(new AutoDriveCommand(0., -.1, 0.));
     // addParallel(new ElevatorCommand(ticks));
     // addSequential(new IntakeCommand());
   }

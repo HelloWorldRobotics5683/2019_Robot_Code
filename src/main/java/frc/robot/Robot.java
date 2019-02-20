@@ -14,15 +14,15 @@ Changes: Created navx command + subsystem, ultrasonic subsystem, began subsystem
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+// Imports to make commands work
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+// Imports for smartdashboard output
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.DriveTrainSubsystem;
-import frc.robot.subsystems.UltrasonicSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.NavxSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
+import frc.robot.commands.*;
+// Import all subsystems
+import frc.robot.subsystems.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,6 +32,7 @@ import frc.robot.subsystems.ElevatorSubsystem;
  * project.
  */
 public class Robot extends TimedRobot {
+  // Constructing new subsystems
   public static DriveTrainSubsystem dt;
   public static NavxSubsystem nav;
   public static UltrasonicSubsystem ultraSys;
@@ -48,13 +49,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    // Initialize the subsystems
     dt = new DriveTrainSubsystem();
     nav = new NavxSubsystem();
     ultraSys = new UltrasonicSubsystem();
     intakeSys = new IntakeSubsystem();
     elevSys = new ElevatorSubsystem();
     m_oi = new OI();
-    
+    m_autonomousCommand = new IntakeInit();
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -97,7 +99,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    // m_autonomousCommand = m_chooser.getSelected();
 
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
