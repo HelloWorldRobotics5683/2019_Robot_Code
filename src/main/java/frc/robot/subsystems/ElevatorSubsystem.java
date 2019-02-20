@@ -25,10 +25,10 @@ public class ElevatorSubsystem extends Subsystem {
   int _loops = 0;
 
   // Constants
-	public static final int kSlotIdx = 0;
-	public static final int kPIDLoopIdx = 0;
-	public static final int kTimeoutMs = 15;
-	public static boolean kSensorPhase = true;
+  public static final int kSlotIdx = 0;
+  public static final int kPIDLoopIdx = 0;
+  public static final int kTimeoutMs = 15;
+  public static boolean kSensorPhase = true;
   public static boolean kMotorInvert = false;
   
   // Gains
@@ -40,6 +40,8 @@ public class ElevatorSubsystem extends Subsystem {
   public final double kPeakOutput = 0.001;
 
   public ElevatorSubsystem() {
+		ResetElevator();
+		System.out.println("hello:" + limSwitch.get());
 		elevator.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, kPIDLoopIdx, kTimeoutMs);
 		elevator.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, kTimeoutMs);
 		elevator.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, kTimeoutMs);
@@ -68,6 +70,10 @@ public class ElevatorSubsystem extends Subsystem {
   public double moveToTarget(double ticks) {
 		 double target = ticks;
 		/* Motion Magic */ 
+		if (target == 0 && limSwitch.get()) {
+			elevator.setSelectedSensorPosition(0);
+			return target;
+		}
 		elevator.set(ControlMode.MotionMagic, target);
 		_loops++;
 		
@@ -103,12 +109,22 @@ public class ElevatorSubsystem extends Subsystem {
 	}
 
 	public void manualControl(double stickVal) {
-		elevator.set(ControlMode.PercentOutput, stickVal);
+		if (limSwitch.get()) {
+			elevator.set(ControlMode.PercentOutput, 0.0);
+			elevator.setSelectedSensorPosition(0);
+		} else {
+			elevator.set(ControlMode.PercentOutput, stickVal);
+		}
+	}
+
+	public boolean getLimitSwitch() {
+		return limSwitch.get();
 	}
 
 	public void ResetElevator() {
-		while (limSwitch.get()) {
-			elevator.set(ControlMode.Position, -0.1);
+		//while (limSwitch.get()) {
+		if(!limSwitch.get()){
+			elevator.set(ControlMode.PercentOutput, -0.2);
 		}
 		elevator.setSelectedSensorPosition(0);
 	}

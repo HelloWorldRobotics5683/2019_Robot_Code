@@ -23,7 +23,8 @@ public class NavxSubsystem extends Subsystem {
   public void pushData() {
     SmartDashboard.putNumber("IMU_Yaw", ahrs.getYaw());
 
-    SmartDashboard.putNumber("Ultrasonic", Robot.ultraSys.UltraConversion());
+    SmartDashboard.putNumber("Ultrasonic 1", Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra1));
+    SmartDashboard.putNumber("Ultrasonic 2", Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra2));
 
     SmartDashboard.putNumber("Displacement_X", ahrs.getDisplacementX());
     SmartDashboard.putNumber("Displacement_Y", ahrs.getDisplacementY());

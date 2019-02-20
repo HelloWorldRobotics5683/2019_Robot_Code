@@ -100,18 +100,6 @@ public class OI {
     level3 = new SingleButton(xb, 4, 6);
     goHome = new DoubleButton(xb, 6, 3); // RB and X
 
-<<<<<<< HEAD
-=======
-    X.whileHeld(new ElevatorCommand(0.)); // reset to very bottom
-    Y.whenPressed(new ElevatorCommand(RobotMap.kLevel3));
-    B.whenPressed(new ElevatorCommand(RobotMap.kLevel2));
-    A.whenPressed(new ElevatorCommand(RobotMap.kLevel1));
-	// kate **** level1.whenActive(new ElevatorCommand(RobotMap.kLevel1));	  
-    LB.whileHeld(new ElevatorManualCommand());
-    Start.whenPressed(new IntakeCommand());
-    Back.whenPressed(new StopMovingCommand());
-    LS.whenPressed(new ThrottleCommand());
->>>>>>> 5e70630cda769be168488a3240acab1c65901b25
     intakeReset.whenActive(new ResetIntakeCommand());
     X.whileHeld(new ElevatorCommand(0.)); // reset to very bottom
     // Y.whenPressed(new ElevatorCommand(RobotMap.kLevel3)); // Move elevator to 3rd level

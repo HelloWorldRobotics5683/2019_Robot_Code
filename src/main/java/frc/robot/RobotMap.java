@@ -38,7 +38,7 @@ public class RobotMap {
 	// public static final double l1Ratio = 1740 / 17.25;
 
 	// Constants in encoder ticks for the elevator levels
-	public static final double kLevel1 = 3300;
-	public static final int kLevel2 = 12605;
-	public static final int kLevel3 = 22230;
+	public static final double kLevel1 = 3324;
+	public static final int kLevel2 = 14050;
+	public static final int kLevel3 = 22170;
 }
