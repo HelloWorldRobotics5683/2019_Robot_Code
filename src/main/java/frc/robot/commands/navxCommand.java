@@ -25,13 +25,14 @@ public class NavxCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.nav.pushData();
+    Robot.nav.pushNavData();
+    Robot.ultraSys.pushUltraData();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.m_oi.getButton(2);
+    return Robot.m_oi.getButton(2); //TODO: Make end condition not reliant on a button
   }
 
   // Called once after isFinished returns true

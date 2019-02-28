@@ -92,7 +92,6 @@ public class OI {
     b12 = new JoystickButton(xb, 12);
     intakeReset = new DoubleButton(xb, 5, 6); // LB and RB
     outtakeL1 = new DoubleButton(xb, 6, 1); // RB and A
-   	 // kate **** level1 = new SingleButton(xb, 1, 6); // A and !RB	  
     outtakeL2 = new DoubleButton(xb, 6, 2); // RB and B
     outtakeL3 = new DoubleButton(xb, 6, 4); // RB and Y
     level1 = new SingleButton(xb, 1, 6);
@@ -113,8 +112,11 @@ public class OI {
     Back.whenPressed(new StopMovingCommand()); // Stops the drivetrain motors
     LS.whenPressed(new ThrottleCommand()); /* Toggles between high and low speeds,
                                               determined by kHighThrottle and kLowThrottle*/
-    outtakeL1.whenActive(new OuttakeGroup()); /* Drives the robot forward to put hatch panel on loading zone,
-                                         resets the intake to release the hatch, and then backs away */
+    outtakeL1.whenActive(new OuttakeGroup(RobotMap.kLevel1)); /* Drives the robot forward to put hatch panel on loading zone,
+                                                              resets the intake to release the hatch, and then backs away */
+    outtakeL2.whenActive(new OuttakeGroup(RobotMap.kLevel2));
+    outtakeL3.whenActive(new OuttakeGroup(RobotMap.kLevel3));
+    RS.whenPressed(new IntakeGroup());
   }
   
   // Method for testing if button with number bNum has been pressed, returns true if button is pressed

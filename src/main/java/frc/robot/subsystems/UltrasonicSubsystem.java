@@ -11,18 +11,24 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.NavxCommand;
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class UltrasonicSubsystem extends Subsystem {
 
-  AnalogInput Ultra1 = new AnalogInput(RobotMap.Ult1);
-  AnalogInput Ultra2 = new AnalogInput(RobotMap.Ult2);
+  public AnalogInput Ultra1 = new AnalogInput(RobotMap.Ult1);
+  public AnalogInput Ultra2 = new AnalogInput(RobotMap.Ult2);
 
   public double UltraConversion(AnalogInput ultra) {
     double ultra_voltage = ultra.getVoltage();
 		double ultraInches = ((ultra_voltage/9.766) * 1000);
 
 		return ultraInches;
-	}
+  }
+  
+  public void pushUltraData() {
+    SmartDashboard.putNumber("Ultrasonic 1", UltraConversion(Ultra1));
+    SmartDashboard.putNumber("Ultrasonic 2", UltraConversion(Ultra2));
+  }
 
   @Override
   public void initDefaultCommand() {
