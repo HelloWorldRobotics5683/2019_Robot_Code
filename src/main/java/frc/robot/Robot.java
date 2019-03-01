@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.*;
 // Import all subsystems
 import frc.robot.subsystems.*;
+import frc.robot.command_groups.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
   public static UltrasonicSubsystem ultraSys;
   public static IntakeSubsystem intakeSys;
   public static ElevatorSubsystem elevSys;
+  public static CameraSubsystem cam;
   public static OI m_oi;
 
   Command m_autonomousCommand;
@@ -55,8 +57,10 @@ public class Robot extends TimedRobot {
     ultraSys = new UltrasonicSubsystem();
     intakeSys = new IntakeSubsystem();
     elevSys = new ElevatorSubsystem();
+    cam = new CameraSubsystem();
     m_oi = new OI();
-    m_autonomousCommand = new IntakeInit();
+    m_autonomousCommand = new AutonomousGroup();
+  
     SmartDashboard.putData("Auto mode", m_chooser);
   }
 
@@ -79,6 +83,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
+    //cam.close();
   }
 
   @Override

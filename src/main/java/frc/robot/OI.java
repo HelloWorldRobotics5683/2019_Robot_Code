@@ -91,9 +91,9 @@ public class OI {
 	  b11 = new JoystickButton(xb, 11);
     b12 = new JoystickButton(xb, 12);
     intakeReset = new DoubleButton(xb, 5, 6); // LB and RB
-    outtakeL1 = new DoubleButton(xb, 6, 1); // RB and A
-    outtakeL2 = new DoubleButton(xb, 6, 2); // RB and B
-    outtakeL3 = new DoubleButton(xb, 6, 4); // RB and Y
+    // outtakeL1 = new DoubleButton(xb, 6, 1); // RB and A
+    // outtakeL2 = new DoubleButton(xb, 6, 2); // RB and B
+    // outtakeL3 = new DoubleButton(xb, 6, 4); // RB and Y
     level1 = new SingleButton(xb, 1, 6);
     level2 = new SingleButton(xb, 2, 6);
     level3 = new SingleButton(xb, 4, 6);
@@ -107,16 +107,16 @@ public class OI {
     level1.whenActive(new ElevatorCommand(RobotMap.kLevel1));
     level2.whenActive(new ElevatorCommand(RobotMap.kLevel2));
     level3.whenActive(new ElevatorCommand(RobotMap.kLevel3));
-    LB.whileHeld(new ElevatorManualCommand()); // Manually control elevator with right stick
+    RB.whileHeld(new ElevatorManualCommand()); // Manually control elevator with right stick
     Start.whenPressed(new IntakeCommand()); // Rotate the intake mechanism 0.5 rotations
     Back.whenPressed(new StopMovingCommand()); // Stops the drivetrain motors
-    LS.whenPressed(new ThrottleCommand()); /* Toggles between high and low speeds,
+    LB.whenPressed(new ThrottleCommand()); /* Toggles between high and low speeds,
                                               determined by kHighThrottle and kLowThrottle*/
-    outtakeL1.whenActive(new OuttakeGroup(RobotMap.kLevel1)); /* Drives the robot forward to put hatch panel on loading zone,
-                                                              resets the intake to release the hatch, and then backs away */
-    outtakeL2.whenActive(new OuttakeGroup(RobotMap.kLevel2));
-    outtakeL3.whenActive(new OuttakeGroup(RobotMap.kLevel3));
-    RS.whenPressed(new IntakeGroup());
+    // outtakeL1.whenActive(new OuttakeGroup(RobotMap.kLevel1)); /* Drives the robot forward to put hatch panel on loading zone,
+    //                                                           resets the intake to release the hatch, and then backs away */
+    // outtakeL2.whenActive(new OuttakeGroup(RobotMap.kLevel2));
+    // outtakeL3.whenActive(new OuttakeGroup(RobotMap.kLevel3));
+    // RS.whenPressed(new IntakeGroup());
   }
   
   // Method for testing if button with number bNum has been pressed, returns true if button is pressed

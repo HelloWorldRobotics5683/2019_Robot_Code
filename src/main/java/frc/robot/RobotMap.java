@@ -32,12 +32,13 @@ public class RobotMap {
 
 	// Constants for the throttle speeds
 	public static final double kHighThrottle = 1.0;
-	public static final double kLowThrottle = 0.25;
+	public static final double kLowThrottle = 0.3;
 
 	// Constant of encoder ticks to inches for 1st elevator level
 	// public static final double l1Ratio = 1740 / 17.25;
 
 	// Constants in encoder ticks for the elevator levels
+	// TODO: Get new constants for the rocket levels
 	public static final double kLevel1 = 3324;
 	public static final int kLevel2 = 14050;
 	public static final int kLevel3 = 22170;

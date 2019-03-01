@@ -10,6 +10,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ThrottleCommand extends Command {
   public ThrottleCommand() {
@@ -27,9 +28,11 @@ public class ThrottleCommand extends Command {
   protected void execute() {
     if (Robot.dt.isHigh) {
       System.out.println("Setting low speed.");
+      SmartDashboard.putNumber("Throttle", RobotMap.kLowThrottle);
       Robot.dt.setThrottle(RobotMap.kLowThrottle);
     } else {
       System.out.println("Setting high speed.");
+      SmartDashboard.putNumber("Throttle", RobotMap.kHighThrottle);
       Robot.dt.setThrottle(RobotMap.kHighThrottle);
     }
   }

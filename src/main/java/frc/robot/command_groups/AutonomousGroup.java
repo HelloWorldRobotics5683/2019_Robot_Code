@@ -5,20 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.command_groups;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.commands.*;
 
-public class CameraSubsystem extends Subsystem {
+public class AutonomousGroup extends CommandGroup {
 
-  public CameraSubsystem() {
-    CameraServer.getInstance().startAutomaticCapture();
-  }
-
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
+  public AutonomousGroup() {
+    addParallel(new MecanumDriveCommand());
+    addSequential(new IntakeInit());
+    addSequential(new ResetElevatorCommand());
   }
 }

@@ -24,10 +24,10 @@ public class UltrasonicSubsystem extends Subsystem {
 
 		return ultraInches;
   }
-  
+
   public void pushUltraData() {
-    SmartDashboard.putNumber("Ultrasonic 1", UltraConversion(Ultra1));
-    SmartDashboard.putNumber("Ultrasonic 2", UltraConversion(Ultra2));
+    SmartDashboard.putNumber("Ultra1", UltraConversion(Ultra1));
+    SmartDashboard.putNumber("Ultra2", UltraConversion(Ultra2));
   }
 
   @Override

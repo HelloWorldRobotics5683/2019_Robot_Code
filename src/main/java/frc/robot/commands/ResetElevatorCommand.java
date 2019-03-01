@@ -10,10 +10,10 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class IntakeInit extends Command {
-  public IntakeInit() {
+public class ResetElevatorCommand extends Command {
+  public ResetElevatorCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.intakeSys);
+    requires(Robot.elevSys);
   }
 
   // Called just before this Command runs the first time
@@ -24,14 +24,13 @@ public class IntakeInit extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intakeSys.intake.setSelectedSensorPosition(0);
-    Robot.intakeSys.moveToTarget(4096.);
+    Robot.elevSys.ResetElevator();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return true;
+    return Robot.elevSys.getLimitSwitch();
   }
 
   // Called once after isFinished returns true
@@ -43,6 +42,5 @@ public class IntakeInit extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }
