@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -93,6 +94,14 @@ public class IntakeSubsystem extends Subsystem {
 
 	public int getPos() {
 		return intake.getSelectedSensorPosition(kPIDLoopIdx);
+	}
+
+	public void IntakeDash() {
+		if (intake.getSelectedSensorPosition() == 0) {
+			SmartDashboard.putString("Intake Position", "Down");
+		} else if (intake.getSelectedSensorPosition() == 2048) {
+			SmartDashboard.putString("Intake Position", "Up");
+		} 
 	}
 
 

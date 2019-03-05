@@ -10,8 +10,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class NavxCommand extends Command {
-  public NavxCommand() {
+public class SmartDashCommand extends Command {
+  public SmartDashCommand() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.nav);
     requires(Robot.ultraSys);
@@ -25,8 +25,9 @@ public class NavxCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.nav.pushNavData();
-    Robot.ultraSys.pushUltraData();
+    Robot.intakeSys.IntakeDash();
+    //Robot.nav.pushNavData();
+    // Robot.ultraSys.pushUltraData();
   }
 
   // Make this return true when this Command no longer needs to run execute()

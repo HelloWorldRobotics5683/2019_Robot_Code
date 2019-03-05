@@ -12,6 +12,8 @@ import frc.robot.Robot;
 
 public class IntakeCommand extends Command {
 
+  int ticks = -1;
+
   public IntakeCommand() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.intakeSys);
@@ -25,14 +27,14 @@ public class IntakeCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double position;
-    if (Robot.intakeSys.isAtZero) {
-      position = Robot.intakeSys.moveToTarget(2048);
-    } else {
-      position = Robot.intakeSys.moveToTarget(0);
-    }
-    Robot.intakeSys.printer(position);
-  }
+    double position;  
+      if (Robot.intakeSys.isAtZero) {
+        position = Robot.intakeSys.moveToTarget(2048);
+      } else {
+        position = Robot.intakeSys.moveToTarget(0);
+      }
+      Robot.intakeSys.printer(position);
+ }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
@@ -44,6 +46,7 @@ public class IntakeCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+  
   }
 
   // Called when another command which requires one or more of the same

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.NavxCommand;
+import frc.robot.commands.SmartDashCommand;
 /**
  * Add your docs here.
  */
@@ -19,10 +19,10 @@ public class NavxSubsystem extends Subsystem {
   public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
 
   public void pushNavData() {
-    // SmartDashboard.putNumber("IMU_Yaw", ahrs.getYaw());
-    // SmartDashboard.putNumber("Displacement_X", ahrs.getDisplacementX());
-    // SmartDashboard.putNumber("Displacement_Y", ahrs.getDisplacementY());
-    // SmartDashboard.putNumber("Displacement_Z", ahrs.getDisplacementZ());
+    SmartDashboard.putNumber("IMU_Yaw", ahrs.getYaw());
+    SmartDashboard.putNumber("Displacement_X", ahrs.getDisplacementX());
+    SmartDashboard.putNumber("Displacement_Y", ahrs.getDisplacementY());
+    SmartDashboard.putNumber("Displacement_Z", ahrs.getDisplacementZ());
   }
 
   public void reset() {
@@ -37,6 +37,6 @@ public class NavxSubsystem extends Subsystem {
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
-    setDefaultCommand(new NavxCommand());
+    setDefaultCommand(new SmartDashCommand());
   }
 }

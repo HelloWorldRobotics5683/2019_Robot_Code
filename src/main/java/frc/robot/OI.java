@@ -110,6 +110,8 @@ public class OI {
     RB.whileHeld(new ElevatorManualCommand()); // Manually control elevator with right stick
     Start.whenPressed(new IntakeCommand()); // Rotate the intake mechanism 0.5 rotations
     Back.whenPressed(new StopMovingCommand()); // Stops the drivetrain motors
+    // Start.whenPressed(new IntakeCommand(3072));
+    // Back.whenPressed(new IntakeCommand(2048));
     LB.whenPressed(new ThrottleCommand()); /* Toggles between high and low speeds,
                                               determined by kHighThrottle and kLowThrottle*/
     // outtakeL1.whenActive(new OuttakeGroup(RobotMap.kLevel1)); /* Drives the robot forward to put hatch panel on loading zone,

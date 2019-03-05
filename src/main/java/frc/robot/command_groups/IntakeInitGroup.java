@@ -8,14 +8,14 @@
 package frc.robot.command_groups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.*;
+import frc.robot.commands.testCommand;
 
-public class AutonomousGroup extends CommandGroup {
-
-  public AutonomousGroup() {
-    addParallel(new MecanumDriveCommand());
-    addSequential(new IntakeInit());
-    // addSequential(new IntakeInitGroup());
-    addSequential(new ResetElevatorCommand());
+public class IntakeInitGroup extends CommandGroup {
+  /**
+   * Add your docs here.
+   */
+  public IntakeInitGroup() {
+    addSequential(new testCommand(3072));
+    addSequential(new testCommand(2048));
   }
 }

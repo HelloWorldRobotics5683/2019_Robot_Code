@@ -10,36 +10,36 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class MecanumDriveCommand extends Command {
-  public MecanumDriveCommand() {
+public class testCommand extends Command {
+  int ticks = 0;
+  public testCommand( int ticks) {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.dt);
+    requires(Robot.intakeSys);
+    this.ticks=ticks;
   }
-
+ 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.intakeSys.intake.setSelectedSensorPosition(0);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.dt.DriveMecanumGeneric(
-      -Robot.m_oi.DriveY() * Robot.dt.getThrottle(),
-      -Robot.m_oi.DriveX() * 0.75 * Robot.dt.getThrottle(),
-      -Robot.m_oi.DriveTwist() * Robot.dt.getThrottle()
-    );
+    Robot.intakeSys.moveToTarget(ticks);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+     System.out.println("Intake finished: " + Robot.intakeSys.intake.getSelectedSensorPosition());
   }
 
   // Called when another command which requires one or more of the same

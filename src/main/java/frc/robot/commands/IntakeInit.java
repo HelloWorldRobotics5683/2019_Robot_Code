@@ -25,7 +25,7 @@ public class IntakeInit extends Command {
   @Override
   protected void execute() {
     Robot.intakeSys.intake.setSelectedSensorPosition(0);
-    Robot.intakeSys.moveToTarget(4096.);
+    Robot.intakeSys.moveToTarget(4096);
   }
 
   // Make this return true when this Command no longer needs to run execute()
