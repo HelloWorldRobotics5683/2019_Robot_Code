@@ -8,6 +8,8 @@
 package frc.robot.command_groups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.commands.*;
 
 public class AutonomousGroup extends CommandGroup {
@@ -17,5 +19,8 @@ public class AutonomousGroup extends CommandGroup {
     addSequential(new IntakeInit());
     // addSequential(new IntakeInitGroup());
     addSequential(new ResetElevatorCommand());
+    // TODO: Test before a competition
+    Timer.delay(2);
+    addSequential(new ElevatorCommand(RobotMap.kLevel1));
   }
 }
