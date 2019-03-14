@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 public class CameraSubsystem extends Subsystem {
 
+  @SuppressWarnings("deprecation")
   public CameraSubsystem() {
     CameraServer.getInstance().startAutomaticCapture();
   }

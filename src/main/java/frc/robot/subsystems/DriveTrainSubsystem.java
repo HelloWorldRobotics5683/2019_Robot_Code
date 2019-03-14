@@ -32,7 +32,6 @@ public class DriveTrainSubsystem extends Subsystem {
 
   public void setThrottle(double newThrottle) {
     throttle = newThrottle;
-    isHigh = !isHigh;
   }
 
   public Double getThrottle() {

@@ -9,12 +9,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class ThrottleCommand extends Command {
-  public ThrottleCommand() {
+public class UltraThrottleCommand extends Command {
+  public UltraThrottleCommand() {
     // Use requires() here to declare subsystem dependencies
+    requires(Robot.ultraSys);
     requires(Robot.dt);
   }
 
@@ -26,16 +25,14 @@ public class ThrottleCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.dt.isHigh) {
-      System.out.println("Setting low speed.");
-      Robot.dt.isHigh = false;
-      SmartDashboard.putNumber("Throttle", RobotMap.kLowThrottle);
-      Robot.dt.setThrottle(RobotMap.kLowThrottle);
+    double avgDist = (Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra1) + 
+    Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra2)) / 2;
+    if(avgDist < 6.0) {
+      Robot.dt.setThrottle(0.1);
+    } else if (Robot.dt.isHigh) {
+      Robot.dt.setThrottle(0.95);
     } else {
-      System.out.println("Setting high speed.");
-      Robot.dt.isHigh = true;
-      SmartDashboard.putNumber("Throttle", RobotMap.kHighThrottle);
-      Robot.dt.setThrottle(RobotMap.kHighThrottle);
+      Robot.dt.setThrottle(0.3);
     }
   }
 
