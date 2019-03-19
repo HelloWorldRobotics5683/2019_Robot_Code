@@ -16,7 +16,7 @@ public class AutonomousGroup extends CommandGroup {
 
   public AutonomousGroup() {
     addParallel(new MecanumDriveCommand());
-    addSequential(new IntakeInit());
+    addSequential(new IntakeInitGroup());
     // addSequential(new IntakeInitGroup());
     addSequential(new ResetElevatorCommand());
     // TODO: Test before a competition

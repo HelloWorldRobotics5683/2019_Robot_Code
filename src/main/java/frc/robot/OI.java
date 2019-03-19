@@ -98,7 +98,7 @@ public class OI {
     level2 = new SingleButton(xb, 2, 6);
     level3 = new SingleButton(xb, 4, 6);
     goHome = new DoubleButton(xb, 6, 3); // RB and X
-
+    
     intakeReset.whenActive(new ResetIntakeCommand());
     X.whileHeld(new ElevatorCommand(0.)); // reset to very bottom
     // Y.whenPressed(new ElevatorCommand(RobotMap.kLevel3)); // Move elevator to 3rd level
@@ -107,9 +107,6 @@ public class OI {
     level1.whenActive(new ElevatorCommand(RobotMap.kLevel1));
     level2.whenActive(new ElevatorCommand(RobotMap.kLevel2));
     level3.whenActive(new ElevatorCommand(RobotMap.kLevel3));
-    while(!Robot.dt.isHigh){
-      new UltraThrottleCommand();
-    }
     RB.whileHeld(new ElevatorManualCommand()); // Manually control elevator with right stick
     Start.whenPressed(new IntakeCommand()); // Rotate the intake mechanism 0.5 rotations
     Back.whenPressed(new StopMovingCommand()); // Stops the drivetrain motors
@@ -120,6 +117,7 @@ public class OI {
     // outtakeL2.whenActive(new OuttakeGroup(RobotMap.kLevel2));
     // outtakeL3.whenActive(new OuttakeGroup(RobotMap.kLevel3));
     // RS.whenPressed(new IntakeGroup());
+    RS.whenPressed(new RumbleCommand());
   }
   
   // Method for testing if button with number bNum has been pressed, returns true if button is pressed

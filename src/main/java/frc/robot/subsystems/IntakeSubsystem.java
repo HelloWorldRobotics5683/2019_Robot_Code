@@ -67,6 +67,7 @@ public class IntakeSubsystem extends Subsystem {
 		intake.set(ControlMode.Position, target);
 		_loops++;
 		isAtZero = !isAtZero;
+		SmartDashboard.putBoolean("Intake", isAtZero);
 		return target;
 	}
 	
@@ -95,15 +96,6 @@ public class IntakeSubsystem extends Subsystem {
 	public int getPos() {
 		return intake.getSelectedSensorPosition(kPIDLoopIdx);
 	}
-
-	public void IntakeDash() {
-		if (intake.getSelectedSensorPosition() == 0) {
-			SmartDashboard.putString("Intake Position", "Down");
-		} else if (intake.getSelectedSensorPosition() == 2048) {
-			SmartDashboard.putString("Intake Position", "Up");
-		} 
-	}
-
 
   @Override
   public void initDefaultCommand() {

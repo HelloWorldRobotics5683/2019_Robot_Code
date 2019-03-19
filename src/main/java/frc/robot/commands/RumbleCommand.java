@@ -7,13 +7,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class SmartDashCommand extends Command {
-  public SmartDashCommand() {
+
+public class RumbleCommand extends Command {
+  Double diff = Math.abs(Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra1) 
+  - Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra2));
+
+  public RumbleCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.nav);
     requires(Robot.ultraSys);
   }
 
@@ -25,25 +31,31 @@ public class SmartDashCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Robot.nav.pushNavData();
-    // Robot.ultraSys.pushUltraData();
+   // if (diff < 0.2) {
+      Robot.m_oi.xb.setRumble(RumbleType.kLeftRumble, 1.);
+      Timer.delay(5);
+      Robot.m_oi.xb.setRumble(RumbleType.kRightRumble, 1.);
+      Timer.delay(5);
+    // }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.m_oi.getButton(2); //TODO: Make end condition not reliant on a button
+    return true;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.nav.reset();
+    Robot.m_oi.xb.setRumble(RumbleType.kLeftRumble, 0.);
+    Robot.m_oi.xb.setRumble(RumbleType.kRightRumble, 0.);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

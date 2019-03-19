@@ -24,9 +24,10 @@ public class MecanumDriveCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // TODO: Test to see of motors work
     Robot.dt.DriveMecanumGeneric(
-      -Robot.m_oi.DriveY() * Robot.dt.getThrottle(),
-      -Robot.m_oi.DriveX() * 0.75 * Robot.dt.getThrottle(),
+      Robot.m_oi.DriveY() * Robot.dt.getThrottle(),
+      Robot.m_oi.DriveX() * 0.75 * Robot.dt.getThrottle(),
       -Robot.m_oi.DriveTwist() * Robot.dt.getThrottle()
     );
   }

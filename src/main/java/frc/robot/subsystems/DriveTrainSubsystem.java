@@ -17,14 +17,15 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
  * Add your docs here.
  */
 public class DriveTrainSubsystem extends Subsystem {
-  double throttle = 1;
+  double throttle = 0.95;
   public boolean isHigh = true;
   public static Victor frontL = new Victor(RobotMap.FL);
   public static Victor frontR = new Victor(RobotMap.FR);
   public static Victor rearL = new Victor(RobotMap.RL);
   public static Victor rearR = new Victor(RobotMap.RR);
   
-  public static MecanumDrive MD = new MecanumDrive(frontR, frontL, rearL, rearR);
+  // TODO: Check before comp
+  public static MecanumDrive MD = new MecanumDrive(frontL, rearL, frontR, rearR);
 
   public void DriveMecanumGeneric( double y, double x, double z) {
     	MD.driveCartesian(y, x, z);
