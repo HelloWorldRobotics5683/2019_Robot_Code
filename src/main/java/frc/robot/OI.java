@@ -10,6 +10,7 @@ package frc.robot;
 // Imports for xbox controller and buttons
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 // Import the button group classes for use in OI
@@ -176,5 +177,10 @@ public class OI {
 			return true;
 		}
 		return false;
+  }
+
+  public void setDualRumble(double intensity) {
+    xb.setRumble(RumbleType.kLeftRumble, intensity);
+    xb.setRumble(RumbleType.kRightRumble, intensity);
   }
 }
