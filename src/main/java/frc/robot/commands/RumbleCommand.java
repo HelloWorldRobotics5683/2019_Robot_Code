@@ -12,33 +12,30 @@ import frc.robot.Robot;
 
 
 public class RumbleCommand extends Command {
-  Double diff;
+  double diff;
   double duration;
   double endTime;
 
   public RumbleCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.ultraSys);
-
     diff = Math.abs(Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra1) 
       - Robot.ultraSys.UltraConversion(Robot.ultraSys.Ultra2));
-    duration = 5000.0;
+    duration = 2000.0;
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    System.out.println("Starting... Current time: " + System.currentTimeMillis());
     endTime = System.currentTimeMillis() + duration;
     System.out.println("End time: " + endTime);
+    Robot.m_oi.setDualRumble(1.0);
+    System.out.println("Begin rumble... Current time: " + System.currentTimeMillis());
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   // if (diff < 0.2) {
-      System.out.println("Begin rumble");
-      Robot.m_oi.setDualRumble(1.0);
-    // }
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -50,7 +47,7 @@ public class RumbleCommand extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    System.out.println("Ended. Stopping rumble.");
+    System.out.println("Ended. Stopping rumble. Curent time: " + System.currentTimeMillis());
     Robot.m_oi.setDualRumble(0.0);
   }
 

@@ -4,7 +4,6 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package frc.robot;
 
 // Imports for xbox controller and buttons
@@ -75,6 +74,7 @@ public class OI {
   SingleButton level2;
   SingleButton level3;
   DoubleButton goHome;
+  DoubleButton rumble;
   private int num_of_sticks = 2;
 
   public OI() {
@@ -99,6 +99,7 @@ public class OI {
     level2 = new SingleButton(xb, 2, 6);
     level3 = new SingleButton(xb, 4, 6);
     goHome = new DoubleButton(xb, 6, 3); // RB and X
+    rumble = new DoubleButton(xb, 6, 1);
     
     intakeReset.whenActive(new ResetIntakeCommand());
     X.whileHeld(new ElevatorCommand(0.)); // reset to very bottom
@@ -118,7 +119,7 @@ public class OI {
     // outtakeL2.whenActive(new OuttakeGroup(RobotMap.kLevel2));
     // outtakeL3.whenActive(new OuttakeGroup(RobotMap.kLevel3));
     // RS.whenPressed(new IntakeGroup());
-    RS.whenPressed(new RumbleCommand());
+    rumble.whenActive(new RumbleCommand());
   }
   
   // Method for testing if button with number bNum has been pressed, returns true if button is pressed
