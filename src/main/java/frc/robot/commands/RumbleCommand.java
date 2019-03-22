@@ -29,7 +29,7 @@ public class RumbleCommand extends Command {
     System.out.println("Starting... Current time: " + System.currentTimeMillis());
     endTime = System.currentTimeMillis() + duration;
     System.out.println("End time: " + endTime);
-    Robot.m_oi.setDualRumble(1.0);
+    Robot.m_oi.setDualRumble(1);
     System.out.println("Begin rumble... Current time: " + System.currentTimeMillis());
   }
 
@@ -48,7 +48,7 @@ public class RumbleCommand extends Command {
   @Override
   protected void end() {
     System.out.println("Ended. Stopping rumble. Curent time: " + System.currentTimeMillis());
-    Robot.m_oi.setDualRumble(0.0);
+    Robot.m_oi.setDualRumble(0);
   }
 
   // Called when another command which requires one or more of the same
