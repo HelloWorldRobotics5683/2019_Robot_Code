@@ -47,7 +47,7 @@ public class OI_Joy {
   // button.whenReleased(new ExampleCommand());
 
   // Constructing new joyox controller, buttons, and button groups
-  public static Joystick joy = new Joystick(0);
+  public static Joystick joy = new Joystick(1);
 
   JoystickButton b1;
   JoystickButton b2;
@@ -74,16 +74,16 @@ public class OI_Joy {
   public OI_Joy() {
     // Initializing buttons and button groups
     b1 = new JoystickButton(joy, 1);
-	b2 = new JoystickButton(joy, 2);
-	b3 = new JoystickButton(joy, 3);
-	b4 = new JoystickButton(joy, 4);
-	b5 = new JoystickButton(joy, 5);
-	b6 = new JoystickButton(joy, 6);
-	b7 = new JoystickButton(joy, 7);
-	b8 = new JoystickButton(joy, 8);
-	b9 = new JoystickButton(joy, 9);
-	b10 = new JoystickButton(joy, 10);
-	b11 = new JoystickButton(joy, 11);
+	  b2 = new JoystickButton(joy, 2);
+	  b3 = new JoystickButton(joy, 3);
+	  b4 = new JoystickButton(joy, 4);
+	  b5 = new JoystickButton(joy, 5);
+	  b6 = new JoystickButton(joy, 6);
+	  b7 = new JoystickButton(joy, 7);
+	  b8 = new JoystickButton(joy, 8);
+	  b9 = new JoystickButton(joy, 9);
+	  b10 = new JoystickButton(joy, 10);
+	  b11 = new JoystickButton(joy, 11);
     b12 = new JoystickButton(joy, 12);
     // intakeReset = new DoubleButton(joy, 5, 6); // LB and RB
     // outtakeL1 = new DoubleButton(joy, 6, 1); // RB and A

@@ -40,6 +40,14 @@ public class DriveTrainSubsystem extends Subsystem {
     return throttle;
   }
 
+  public void setRSInverted(boolean state) {
+    MD.setRightSideInverted(state);
+  }
+
+  public void feed() {
+    MD.feedWatchdog();
+  }
+
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
