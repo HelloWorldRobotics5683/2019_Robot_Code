@@ -16,11 +16,10 @@ public class AutonomousGroup extends CommandGroup {
 
   public AutonomousGroup() {
     addParallel(new MecanumDriveCommand());
-    addSequential(new IntakeInitGroup());
     // addSequential(new IntakeInitGroup());
     addSequential(new ResetElevatorCommand());
     // TODO: Test before a competition
-    Timer.delay(2);
+    Timer.delay(1);
     addSequential(new ElevatorCommand(RobotMap.kLevel1));
   }
 }

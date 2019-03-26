@@ -32,6 +32,7 @@ public class RobotMap {
 
 	// Constants for the throttle speeds
 	public static final double kHighThrottle = 0.95;
+	public static final double kDCHighThrottle = 0.5;
 	public static final double kLowThrottle = 0.3;
 
 	// Constant of encoder ticks to inches for 1st elevator level

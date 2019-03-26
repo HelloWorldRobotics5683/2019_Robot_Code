@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
   public static ElevatorSubsystem elevSys;
   public static CameraSubsystem cam;
   public static OI m_oi;
-  public static OI_Joy j_oi;
+  // public static OI_Joy j_oi;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
     elevSys = new ElevatorSubsystem();
     cam = new CameraSubsystem();
     m_oi = new OI();
-    j_oi = new OI_Joy();
+    // j_oi = new OI_Joy();
     m_autonomousCommand = new AutonomousGroup();
   
     SmartDashboard.putData("Auto mode", m_chooser);
