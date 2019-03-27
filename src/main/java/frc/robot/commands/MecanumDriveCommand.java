@@ -26,7 +26,6 @@ public class MecanumDriveCommand extends Command {
   protected void execute() {
     // TODO: Test to see if motors work
     // Robot.dt.feed();
-    Robot.dt.setRSInverted(true);
     Robot.dt.DriveMecanumGeneric(
       Robot.m_oi.DriveY() * Robot.dt.getThrottle(),
       Robot.m_oi.DriveX() * 0.75 * Robot.dt.getThrottle(),
