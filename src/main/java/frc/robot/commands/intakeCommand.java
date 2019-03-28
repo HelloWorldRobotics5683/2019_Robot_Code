@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class IntakeCommand extends Command {
 
@@ -30,8 +31,10 @@ public class IntakeCommand extends Command {
     double position;  
       if (Robot.intakeSys.isAtZero) {
         position = Robot.intakeSys.moveToTarget(2048);
+        SmartDashboard.putString("Intake_Pos", "Up");
       } else {
         position = Robot.intakeSys.moveToTarget(0);
+        SmartDashboard.putString("Intake_Pos", "Down");
       }
       Robot.intakeSys.printer(position);
  }

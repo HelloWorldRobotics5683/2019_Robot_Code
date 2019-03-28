@@ -29,13 +29,13 @@ public class ThrottleCommand extends Command {
     if (Robot.dt.isHigh) {
       System.out.println("Setting low speed.");
       Robot.dt.isHigh = false;
-      SmartDashboard.putString("Throttle", "Low");
+      SmartDashboard.putString("Throttle_Val", "Low");
       SmartDashboard.putBoolean("Throttle", Robot.dt.isHigh);
       Robot.dt.setThrottle(RobotMap.kLowThrottle);
     } else {
       System.out.println("Setting high speed.");
       Robot.dt.isHigh = true;
-      SmartDashboard.putString("Throttle", "High");
+      SmartDashboard.putString("Throttle_Val", "High");
       SmartDashboard.putBoolean("Throttle", Robot.dt.isHigh);
       Robot.dt.setThrottle(RobotMap.kHighThrottle);
     }
