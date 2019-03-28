@@ -19,17 +19,17 @@ public class MecanumDriveCommand extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    // Robot.dt.setThrottle(RobotMap.kHighThrottle);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // TODO: Test to see if motors work
     // Robot.dt.feed();
     Robot.dt.DriveMecanumGeneric(
+      -Robot.m_oi.DriveX() * 0.75,
       Robot.m_oi.DriveY() * Robot.dt.getThrottle(),
-      Robot.m_oi.DriveX() * 0.75 * Robot.dt.getThrottle(),
-      -Robot.m_oi.DriveTwist() * Robot.dt.getThrottle()
+      -Robot.m_oi.DriveTwist() * 0.7
     );
   }
 

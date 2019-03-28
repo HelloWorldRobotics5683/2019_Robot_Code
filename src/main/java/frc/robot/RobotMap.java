@@ -16,8 +16,8 @@ public class RobotMap {
 	// Port numbers for the driving motors
 	public static final int FL = 0;
 	public static final int FR = 1;
-	public static final int RR = 2;
-	public static final int RL = 3;
+	public static final int RL = 2;
+	public static final int RR = 3;
 
 	// Port numbers for the ultrasonic sensors
 	public static final int Ult1 = 0;

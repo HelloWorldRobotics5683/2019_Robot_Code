@@ -58,7 +58,7 @@ public class ElevatorSubsystem extends Subsystem {
 		elevator.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
    		elevator.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
     
-    	elevator.configMotionCruiseVelocity(600, kTimeoutMs);
+    	elevator.configMotionCruiseVelocity(750, kTimeoutMs);// Vel original 600
 		elevator.configMotionAcceleration(1000, kTimeoutMs);
 		elevator.setSelectedSensorPosition(0, kPIDLoopIdx, kTimeoutMs);
 		

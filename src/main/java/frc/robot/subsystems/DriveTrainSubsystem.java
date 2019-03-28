@@ -24,12 +24,11 @@ public class DriveTrainSubsystem extends Subsystem {
   public static Victor rearL = new Victor(RobotMap.RL);
   public static Victor rearR = new Victor(RobotMap.RR);
   
-  // TODO: Check before comp
   public static MecanumDrive MD = new MecanumDrive(frontL, rearL, frontR, rearR);
   
 
-  public void DriveMecanumGeneric( double y, double x, double z) {
-    	MD.driveCartesian(y, x, z);
+  public void DriveMecanumGeneric( double x, double y, double z) {
+    	MD.driveCartesian(x, y, z);
   }
 
   public void setThrottle(double newThrottle) {
@@ -38,10 +37,6 @@ public class DriveTrainSubsystem extends Subsystem {
 
   public Double getThrottle() {
     return throttle;
-  }
-
-  public void setRSInverted(boolean state) {
-    MD.setRightSideInverted(state);
   }
 
   public void feed() {
